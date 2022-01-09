@@ -1,0 +1,11 @@
+package etl.log
+
+import org.apache.spark.sql.{DataFrame}
+import etl.common.SplittedLogDFs
+
+
+object LogSplitter {
+  def splitLog(df: DataFrame): SplittedLogDFs = {
+    SplittedLogDFs(df, df, df)
+  }
+}

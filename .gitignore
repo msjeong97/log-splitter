@@ -1,0 +1,10 @@
+.idea/
+.bsp/
+
+project/target
+target/
+data/
+
+*.DS_Store
+*.class
+*.log

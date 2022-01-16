@@ -2,7 +2,6 @@
 package etl.log
 
 import org.apache.spark.sql.{DataFrame, SaveMode, SparkSession}
-import etl.log.LogSplitter
 
 
 object OrgLogSplit {

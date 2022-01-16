@@ -1,7 +1,7 @@
 // scalastyle:off println
 package etl.log
 
-import org.apache.spark.sql.{DataFrame, SaveMode, SparkSession}
+import org.apache.spark.sql.{SaveMode, SparkSession}
 
 
 object OrgLogSplit {

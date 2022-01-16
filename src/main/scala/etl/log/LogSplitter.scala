@@ -6,6 +6,8 @@ import etl.common.SplittedLogDFs
 
 object LogSplitter {
   def splitLog(df: DataFrame): SplittedLogDFs = {
-    SplittedLogDFs(df, df, df)
+    val adLogDF = AdLogLoader.parse(df)
+
+    SplittedLogDFs(adLogDF, df, df)
   }
 }

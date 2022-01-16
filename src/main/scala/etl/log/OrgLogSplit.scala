@@ -1,7 +1,7 @@
 // scalastyle:off println
 package etl.log
 
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.{DataFrame, SaveMode, SparkSession}
 import etl.log.LogSplitter
 
 
@@ -14,6 +14,7 @@ object OrgLogSplit {
 
     val logPath = spark.conf.getOption("spark.etl.log_path").get
     val outputPath = spark.conf.getOption("spark.etl.output_path").get
+    val outputPartitions = spark.conf.get("spark.etl.output_partition").toInt
 
     val df = spark.read
       .format("json")
@@ -21,7 +22,28 @@ object OrgLogSplit {
 
     val splitLogDFs = LogSplitter.splitLog(df)
 
-    println(splitLogDFs.adLog.columns.mkString(" "))
+    val adLogDF = splitLogDFs.adLog
+    val recoLogDF = splitLogDFs.recoLog
+    val userLogDF = splitLogDFs.userLog
+
+    adLogDF.coalesce(outputPartitions)
+      .write
+      .option("compression", "snappy")
+      .mode(SaveMode.Overwrite)
+      .parquet(outputPath + "/adLog/")
+
+    recoLogDF.coalesce(outputPartitions)
+      .write
+      .option("compression", "snappy")
+      .mode(SaveMode.Overwrite)
+      .parquet(outputPath + "/recoLog/")
+
+    userLogDF.coalesce(outputPartitions)
+      .write
+      .option("compression", "snappy")
+      .mode(SaveMode.Overwrite)
+      .parquet(outputPath + "/userLog/")
+
     spark.stop()
   }
 }

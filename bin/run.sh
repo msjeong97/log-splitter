@@ -11,7 +11,7 @@ JAR_PATH="$(pwd)/../target/scala-2.12/log-splitter_2.12-0.1.jar"
 NUM_PARTITION=5
 OUTPUT_PARTITION=3
 
-spark-submit --class etl.log.OrgLogSplit \
+spark-submit --class etl.log.splitter.OrgLogSplitter \
   --conf "spark.etl.log_path=${LOG_PATH}" \
   --conf "spark.etl.output_path=${OUTPUT_PATH}" \
   --conf "spark.etl.output_partition=${OUTPUT_PARTITION}" \

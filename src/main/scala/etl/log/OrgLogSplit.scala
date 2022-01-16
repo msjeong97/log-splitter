@@ -12,7 +12,8 @@ object OrgLogSplit {
       .appName("SparkLogSplitter")
       .getOrCreate()
 
-    val logPath = spark.conf.getOption("spark.etl.logpath").get
+    val logPath = spark.conf.getOption("spark.etl.log_path").get
+    val outputPath = spark.conf.getOption("spark.etl.output_path").get
 
     val df = spark.read
       .format("json")

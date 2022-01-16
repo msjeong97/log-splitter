@@ -4,6 +4,8 @@
 project/target
 target/
 data/
+input-data-path/
+output-data-path/
 
 *.DS_Store
 *.class

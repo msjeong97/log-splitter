@@ -13,35 +13,37 @@ object OrgLogSplitter {
 
     val logPath = spark.conf.getOption("spark.etl.log_path").get
     val outputPath = spark.conf.getOption("spark.etl.output_path").get
-    val outputPartitions = spark.conf.get("spark.etl.output_partition").toInt
+    val outputPartitions = spark.conf.getOption("spark.etl.output_partition").get.toInt
+    val numPartitions = spark.conf.getOption("spark.sql.shuffle.partitions").get.toInt
 
     val df = spark.read
       .format("json")
       .load(logPath)
+      .repartition(numPartitions)
 
     val splitLogDFs = LogSplitter.splitLog(df)
 
-    val adLogDF = splitLogDFs.adLog
-    val recoLogDF = splitLogDFs.recoLog
+    val advertiserLogDF = splitLogDFs.adLog
+    val mediaLogDF = splitLogDFs.recoLog
     val userLogDF = splitLogDFs.userLog
 
-    adLogDF.coalesce(outputPartitions)
+    advertiserLogDF.coalesce(outputPartitions)
       .write
       .option("compression", "snappy")
       .mode(SaveMode.Overwrite)
-      .parquet(outputPath + "/adLog/")
+      .parquet(outputPath + "/advertiser/")
 
-    recoLogDF.coalesce(outputPartitions)
+    mediaLogDF.coalesce(outputPartitions)
       .write
       .option("compression", "snappy")
       .mode(SaveMode.Overwrite)
-      .parquet(outputPath + "/recoLog/")
+      .parquet(outputPath + "/media/")
 
     userLogDF.coalesce(outputPartitions)
       .write
       .option("compression", "snappy")
       .mode(SaveMode.Overwrite)
-      .parquet(outputPath + "/userLog/")
+      .parquet(outputPath + "/user/")
 
     spark.stop()
   }

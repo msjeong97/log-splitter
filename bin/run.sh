@@ -4,12 +4,14 @@ set -xe
 
 SCRIPT_PATH="$(dirname $0)"
 cd $SCRIPT_PATH
-LOG_PATH="$(pwd)/../input-data-path/json/*"
-OUTPUT_PATH="$(pwd)/../output-data-path/json"
+
+# Todo: get app name as an argument, e.g. ad_expose_click
+LOG_PATH="$(pwd)/../input-data-path/json/ad_expose_click/*"
+OUTPUT_PATH="$(pwd)/../output-data-path/json/ad_expose_click/"
 JAR_PATH="$(pwd)/../target/scala-2.12/log-splitter_2.12-0.1.jar"
 
 NUM_PARTITION=5
-OUTPUT_PARTITION=3
+OUTPUT_PARTITION=5
 
 spark-submit --class etl.log.splitter.OrgLogSplitter \
   --conf "spark.etl.log_path=${LOG_PATH}" \

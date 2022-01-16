@@ -1,7 +1,8 @@
-package etl.log
+package etl.log.splitter
 
-import org.apache.spark.sql.{DataFrame}
+import org.apache.spark.sql.DataFrame
 import etl.common.SplittedLogDFs
+import etl.log.loader.AdLogLoader
 
 
 object LogSplitter {

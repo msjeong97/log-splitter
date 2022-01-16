@@ -1,10 +1,10 @@
 // scalastyle:off println
-package etl.log
+package etl.log.splitter
 
 import org.apache.spark.sql.{SaveMode, SparkSession}
 
 
-object OrgLogSplit {
+object OrgLogSplitter {
   def main(args: Array[String]): Unit = {
     val spark = SparkSession
       .builder

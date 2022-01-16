@@ -1,4 +1,4 @@
-package etl.log
+package etl.log.loader
 
 import org.apache.spark.sql.DataFrame
 

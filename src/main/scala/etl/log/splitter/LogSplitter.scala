@@ -2,13 +2,13 @@ package etl.log.splitter
 
 import org.apache.spark.sql.DataFrame
 import etl.common.SplittedLogDFs
-import etl.log.loader.AdLogLoader
+import etl.log.loader.ClientLogLoader
 
 
 object LogSplitter {
   def splitLog(df: DataFrame): SplittedLogDFs = {
-    val adLogDF = AdLogLoader.parse(df)
+    val clientLogDF = ClientLogLoader.parse(df)
 
-    SplittedLogDFs(adLogDF, df, df)
+    SplittedLogDFs(clientLogDF, df, df)
   }
 }

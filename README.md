@@ -3,7 +3,7 @@ Spark를 사용하여 진행하는 ETL 사이드 프로젝트 repository.
 
 ## 1. Description
 
-- json log를 읽어서 용도별로 분리해서 저장하는 `Spark` batch job.
+- json log를 읽어서 용도별로 분리해서 parquet로 저장하는 `Spark` batch job.
 
 
 ## 2. Environment

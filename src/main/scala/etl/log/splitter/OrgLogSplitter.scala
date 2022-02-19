@@ -20,6 +20,7 @@ object OrgLogSplitter {
       .format("json")
       .load(logPath)
       .repartition(numPartitions)
+      .persist()
 
     val splitLogDFs = LogSplitter.splitLog(df)
 

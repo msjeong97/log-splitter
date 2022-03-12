@@ -6,4 +6,4 @@ SCRIPT_PATH="$(dirname $0)"
 PROJECT_PATH="${SCRIPT_PATH}/../"
 
 cd $PROJECT_PATH
-sbt clean package
+sbt clean assembly

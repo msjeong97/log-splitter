@@ -22,7 +22,6 @@ object MediaLogLoader extends LogLoaderBase {
           "local_time",
           from_unixtime((col("timestamp").cast(LongType) / 1000) + (col("tzoffset") * 60))
             .cast(TimestampType))
-        .withColumn("")
 
     loadedDf.select("service_id", "service_name", "service_type", "action", "tzoffset", "local_time",
       "utc_time")

@@ -32,7 +32,10 @@ object AdvertiserLogLoader extends LogLoaderBase {
 
     val loadedDf =
       df.withColumn("client_id", col("client_id").cast(IntegerType))
+        .withColumn("client_name", col("client_name").cast(StringType))
         .withColumn("campaign_id", col("campaign_id").cast(StringType))
+        .withColumn("content_id", col("content_id").cast(StringType))
+        .withColumn("channel", col("channel").cast(StringType))
         .withColumn("action", col("action").cast(StringType))
         .withColumn("tzoffset", col("tzoffset_c").cast(IntegerType))
         .withColumn(
@@ -46,11 +49,11 @@ object AdvertiserLogLoader extends LogLoaderBase {
         .withColumn("bid_price", col("bid_price").cast(DoubleType))
         .withColumn("win_price", col("win_price").cast(DoubleType))
         .withColumn("cost_client",
-                    when(col("cost_meta").isNotNull,
-                    parseCostMeta(col("cost_meta"), "cost_c").get.cast(DoubleType))
-                      .otherwise(null))
+          when(col("cost_meta").isNotNull,
+          parseCostMeta(col("cost_meta"), "cost_c").get.cast(DoubleType))
+            .otherwise(null))
 
-    loadedDf.select("client_id", "campaign_id", "action", "tzoffset", "utc_time", "local_time", "bid_price",
-                    "win_price", "cost_client")
+    loadedDf.select("client_id", "client_name", "campaign_id", "action", "tzoffset", "utc_time",
+      "local_time", "bid_price", "win_price", "cost_client")
   }
 }

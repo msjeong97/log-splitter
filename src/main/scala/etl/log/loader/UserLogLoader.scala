@@ -22,7 +22,7 @@ object UserLogLoader extends LogLoaderBase {
 
     val loadedDf =
       df.withColumn("city", col("city").cast(StringType))
-        .withColumn("country", col("country").cast(StringType))
+        .withColumn("county", col("county").cast(StringType))
         .withColumn("ip", col("ip").cast(StringType))
         .withColumn("user_group", col("user_group").cast(IntegerType))
         .withColumn("os", parseUserAgent(col("ua")).getItem("os"))
@@ -30,6 +30,6 @@ object UserLogLoader extends LogLoaderBase {
         .withColumn("browser", parseUserAgent(col("ua")).getItem("browser"))
 
 
-    loadedDf.select("city", "country", "ip", "user_group", "os", "device", "browser")
+    loadedDf.select("city", "county", "ip", "user_group", "os", "device", "browser")
   }
 }
